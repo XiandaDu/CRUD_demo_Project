@@ -36,25 +36,25 @@ create_time	    datetime	    创建时间
 update_time	    datetime	    最后更新时间
 
 学生、教师关系表（student_teacher）
-字段名	数据类型	说明
-id	int	主键id
-student_id	int	学生id，外键关联
-teacher_id	int	教师id，外键关联
-create_time	datetime	创建时间
-supervise	bool	监督状态（是否监督）
+字段名	        数据类型	    说明
+id	            int	        主键id
+student_id	    int	        学生id，外键关联
+teacher_id	    int	        教师id，外键关联
+create_time	    datetime	创建时间
+supervise	    bool	    监督状态（是否监督）
 supervise_time	datetime	监督时间
-cancel_time	datetime	取消监督时间
+cancel_time	    datetime	取消监督时间
 
 操作日志表（operation_log）
-字段名	数据类型	说明
-id	int	主键id
-user_id	int	操作人id，外键关联
-action	varchar(64)	操作动作
-obj_type	varchar(64)	操作对象类型
-obj_id	int	操作对象id，外键关联
-create_time	datetime	操作时间
-API 设计
+字段名	    数据类型	        说明
+id	        int	            主键id
+user_id	    int	            操作人id, 外键关联
+action	    varchar(64)	    操作动作
+obj_type	varchar(64)	    操作对象类型
+obj_id	    int	            操作对象id，外键关联
+create_time	datetime	    操作时间
 
+API 设计
 学生相关 API
 GET /students：获取学生列表
 POST /students：创建新学生数据

@@ -1,39 +1,58 @@
+
+
 <template>
 
     <div class="slider-container">
+
         <div class="slider-handle" @click="toggleSlider">
             <span v-if="!isOpen">Click to open</span>
             <span v-else>Click to close</span>
         </div>
+
         <div class="slider" :class="{ 'open': isOpen }">
-            <div class="slider-content1">
+            <div class="slider-content1"  @click="change(1)">
                 <p>Students Information</p>
             </div>
-            <div class="slider-content2" :class="{'open':isOpen}">
+            <div class="slider-content2" :class="{'open':isOpen}"  @click="change(2)">
                 <p>Teachers Information</p>
             </div>
         </div>
 
-        <div class="slider-class_info" :class="{'open': isOpen}">
+        <div class="slider-class_info" :class="{'open': isOpen}"  @click="change(3)">
             <p>Class information</p>
         </div>
-        <div class="slider-log" :class="{'open': isOpen}">
+        <div class="slider-log" :class="{'open': isOpen}"  @click="change(4)">
             <p>Log record</p>
         </div>
     </div>
+
+    <p>{{ChangePage}} test in LB</p>
 
 </template>
 
 <script>
 export default {
+    props: {
+        toTop: {
+            type: Number,
+            default: 0
+        }
+    },
+
     data() {
         return {
+            ChangePage:0,
             isOpen: false
         }
     },
+
     methods: {
         toggleSlider() {
             this.isOpen = !this.isOpen
+        },
+        change(page){
+            this.ChangePage=page
+            this.$emit("on-change-page", this.ChangePage);
         }
     }
 }
