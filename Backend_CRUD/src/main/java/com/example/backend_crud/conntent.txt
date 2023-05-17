@@ -17,7 +17,6 @@ name	        varchar(32) 	学生姓名
 gender	        varchar(4)	    性别
 age	            int	            年龄
 phone	        varchar(15)	    手机号码
-email	        varchar(64)	    邮箱
 addr	        varchar(128)	家庭地址
 create_time	    datetime	    创建时间
 update_time	    datetime	    最后更新时间
@@ -28,6 +27,7 @@ id	            int	            主键id
 name	        varchar(32)	    教师姓名
 gender	        varchar(4)	    性别
 age	            int	            年龄
+inClass
 title	        varchar(32)	    职称
 phone	        varchar(15)	    手机号码
 email	        varchar(64)	    邮箱
@@ -35,20 +35,9 @@ addr	        varchar(128)	家庭地址
 create_time	    datetime	    创建时间
 update_time	    datetime	    最后更新时间
 
-学生、教师关系表（student_teacher）
-字段名	        数据类型	    说明
-id	            int	        主键id
-student_id	    int	        学生id，外键关联
-teacher_id	    int	        教师id，外键关联
-create_time	    datetime	创建时间
-supervise	    bool	    监督状态（是否监督）
-supervise_time	datetime	监督时间
-cancel_time	    datetime	取消监督时间
-
 操作日志表（operation_log）
 字段名	    数据类型	        说明
 id	        int	            主键id
-user_id	    int	            操作人id, 外键关联
 action	    varchar(64)	    操作动作
 obj_type	varchar(64)	    操作对象类型
 obj_id	    int	            操作对象id，外键关联
@@ -61,18 +50,14 @@ POST /students：创建新学生数据
 GET /students/{id}：获取指定 id 的学生信息
 PUT /students/{id}：更新指定 id 的学生信息
 DELETE /students/{id}：删除指定 id 的学生信息
+
 教师相关 API
 GET /teachers：获取教师列表
 POST /teachers：创建新教师数据
 GET /teachers/{id}：获取指定 id 的教师信息
 PUT /teachers/{id}：更新指定 id 的教师信息
 DELETE /teachers/{id}：删除指定 id 的教师信息
-学生、教师关系相关 API
-GET /student_teacher：获取所有学生与教师的关系
-POST /student_teacher：创建新的学生与教师的关系
-GET /student_teacher/{id}：获取指定 id 的学生与教师的关系
-PUT /student_teacher/{id}：更新指定 id 的学生与教师的关系
-DELETE /student_teacher/{id}：删除指定 id 的学生与教师的关系
+
 操作日志相关 API
 GET /operation_log：获取所有操作日志列表
 POST /operation_log：创建新的操作日志

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend_crud.mapper.TeacherMapper">
+    <resultMap id="TeacherMapper" type="com.example.backend_crud.entity.Teachers">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="age" column="age"/>
+        <result property="inClass" column="inClass"/>
+        <result property="title" column="title"/>
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+        <result property="addr" column="addr"/>
+        <result property="create_time" column="create_time"/>
+        <result property="update_time" column="update_time"/>
+    </resultMap>
+
+    <select id="getAll" resultType="com.example.backend_crud.entity.Teachers">
+        SELECT * FROM Teachers
+    </select>
+
+</mapper>

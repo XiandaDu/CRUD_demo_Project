@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend_crud.mapper.StudentMapper">
+    <resultMap id="StudentMapper" type="com.example.backend_crud.entity.Students">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="inClass" column="inClass"/>
+        <result property="age" column="age"/>
+        <result property="phone" column="phone"/>
+        <result property="addr" column="addr"/>
+        <result property="create_time" column="create_time"/>
+        <result property="update_time" column="update_time"/>
+    </resultMap>
+
+    <select id="getAll" resultType="com.example.backend_crud.entity.Students">
+        SELECT * FROM Students
+    </select>
+
+    <select id="getById" resultType="com.example.backend_crud.entity.Students">
+        SELECT * FROM Students WHERE id=#{id}
+    </select>
+
+    <select id="getByCondition" resultType="com.example.backend_crud.entity.Students">
+        SELECT * FROM Students
+        <where>
+            <if test="name != null and name != ''">
+                AND name LIKE CONCAT('%',#{name},'%')
+            </if>
+
+            <if test="minAge != null or maxAge != null">
+                <choose>
+                    <when test="minAge != null and maxAge != null">
+                        AND age BETWEEN #{ageStart} AND #{ageEnd}
+                    </when>
+                    <when test="minAge != null">
+                        AND age &gt;= #{ageStart}
+                    </when>
+                    <when test="maxAge != null">
+                        AND age &lt;= #{ageEnd}
+                    </when>
+                </choose>
+            </if>
+
+            <if test="gender != null and gender != ''">
+                AND gender=#{gender}
+            </if>
+
+            <if test="phone != null and phone != ''">
+                AND phone LIKE CONCAT('%',#{phone},'%')
+            </if>
+
+            <if test="addr != null and addr != ''">
+                AND addr LIKE CONCAT('%',#{addr},'%')
+            </if>
+
+            <if test="inClass != null">
+                AND inClass=#{inClass}
+            </if>
+        </where>
+    </select>
+
+
+    <update id="putById" parameterType="com.example.backend_crud.entity.Students">
+        UPDATE Students SET name=#{name}, gender=#{gender}, inClass=#{inClass}, age=#{age}, phone=#{phone}, addr=#{addr}, update_time=#{update_time} WHERE id=#{id}
+    </update>
+
+    <insert id="postStudent" parameterType="com.example.backend_crud.entity.Students">
+        INSERT INTO Students(name, gender, inClass, age, phone, addr) VALUES(#{name}, #{gender}, #{inClass}, #{age}, #{phone}, #{addr})
+    </insert>
+
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM Students WHERE id=#{id}
+    </delete>
+
+    <delete id="deleteByCondition" parameterType="com.example.backend_crud.entity.Students">
+        DELETE FROM Students
+        <where>
+            <if test="name != null and name != ''">
+                OR name LIKE CONCAT('%',#{name},'%')
+            </if>
+
+            <if test="minAge != null or maxAge != null">
+                <choose>
+                    <when test="minAge != null and maxAge != null">
+                        OR (age BETWEEN #{ageStart} AND #{ageEnd})
+                    </when>
+                    <when test="minAge != null">
+                        OR age &gt;= #{ageStart}
+                    </when>
+                    <when test="maxAge != null">
+                        OR age &lt;= #{ageEnd}
+                    </when>
+                </choose>
+            </if>
+
+            <if test="gender != null and gender != ''">
+                OR gender=#{gender}
+            </if>
+
+            <if test="phone != null and phone != ''">
+                OR phone=#{phone}
+            </if>
+
+            <if test="addr != null and addr != ''">
+                OR addr LIKE CONCAT('%',#{addr},'%')
+            </if>
+
+            <if test="inClass != null">
+                OR inClass=#{inClass}
+            </if>
+        </where>
+    </delete>
+
+</mapper>
