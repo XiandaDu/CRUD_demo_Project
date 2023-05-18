@@ -29,8 +29,9 @@ public class StudentService {
         studentMapper.deleteByCondition(name, gender, inClass, minAge, maxAge, phone, addr);
     }
 
-    public void putById(Long id){
-        studentMapper.putById(id);
+    public void putById(Long id, String name, String gender, Integer inClass, Integer age, String phone, String addr){
+        Students students = new Students(id, name, gender, inClass, age, phone, addr);
+        studentMapper.putById(students);
     }
 
 

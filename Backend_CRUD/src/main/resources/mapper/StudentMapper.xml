@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.backend_crud.mapper.StudentMapper">
-    <resultMap id="StudentMapper" type="com.example.backend_crud.entity.Students">
+    <resultMap id="StudentResultMap" type="com.example.backend_crud.entity.Students">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="gender" column="gender"/>
@@ -10,8 +10,8 @@
         <result property="age" column="age"/>
         <result property="phone" column="phone"/>
         <result property="addr" column="addr"/>
-        <result property="create_time" column="create_time"/>
-        <result property="update_time" column="update_time"/>
+        <result property="create_time" column="create_time" javaType="java.util.Date"/>
+        <result property="update_time" column="update_time" javaType="java.util.Date"/>
     </resultMap>
 
     <select id="getAll" resultType="com.example.backend_crud.entity.Students">
@@ -63,11 +63,11 @@
 
 
     <update id="putById" parameterType="com.example.backend_crud.entity.Students">
-        UPDATE Students SET name=#{name}, gender=#{gender}, inClass=#{inClass}, age=#{age}, phone=#{phone}, addr=#{addr}, update_time=#{update_time} WHERE id=#{id}
+        UPDATE Students SET name=#{name}, gender=#{gender}, inClass=#{inClass}, age=#{age}, phone=#{phone}, addr=#{addr}, update_time=NOW() WHERE id=#{id}
     </update>
 
     <insert id="postStudent" parameterType="com.example.backend_crud.entity.Students">
-        INSERT INTO Students(name, gender, inClass, age, phone, addr) VALUES(#{name}, #{gender}, #{inClass}, #{age}, #{phone}, #{addr})
+        INSERT INTO Students(name, gender, inClass, age, phone, addr, create_time) VALUES(#{name}, #{gender}, #{inClass}, #{age}, #{phone}, #{addr}, NOW())
     </insert>
 
     <delete id="deleteById" parameterType="int">

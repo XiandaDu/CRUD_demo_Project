@@ -20,4 +20,113 @@
         SELECT * FROM Teachers
     </select>
 
+    <select id="getById" resultType="com.example.backend_crud.entity.Teachers">
+        SELECT * FROM Teachers WHERE id=#{id}
+    </select>
+
+    <select id="getByCondition" resultType="com.example.backend_crud.entity.Teachers">
+        SELECT * FROM Teachers
+        <where>
+            <if test="name != null and name != ''">
+                AND name LIKE CONCAT('%',#{name},'%')
+            </if>
+
+            <if test="minAge != null or maxAge != null">
+                <choose>
+                    <when test="minAge != null and maxAge != null">
+                        AND age BETWEEN #{ageStart} AND #{ageEnd}
+                    </when>
+                    <when test="minAge != null">
+                        AND age &gt;= #{ageStart}
+                    </when>
+                    <when test="maxAge != null">
+                        AND age &lt;= #{ageEnd}
+                    </when>
+                </choose>
+            </if>
+
+            <if test="gender != null and gender != ''">
+                AND gender=#{gender}
+            </if>
+
+            <if test="phone != null and phone != ''">
+                AND phone LIKE CONCAT('%',#{phone},'%')
+            </if>
+
+            <if test="addr != null and addr != ''">
+                AND addr LIKE CONCAT('%',#{addr},'%')
+            </if>
+
+            <if test="inClass != null">
+                AND inClass=#{inClass}
+            </if>
+
+            <if test="title != null and title != ' '">
+                AND title=#{title}
+            </if>
+
+            <if test="email != null and email != ' '">
+                AND email=#{email}
+            </if>
+        </where>
+    </select>
+
+    <update id="putById" parameterType="com.example.backend_crud.entity.Teachers">
+        UPDATE Teachers SET name=#{name}, gender=#{gender}, inClass=#{inClass}, age=#{age}, phone=#{phone}, addr=#{addr}, title=#{title}, email=#{email}, update_time=#{update_time} WHERE id=#{id}
+    </update>
+
+    <insert id="postStudent" parameterType="com.example.backend_crud.entity.Teachers">
+        INSERT INTO Teachers(name, gender, inClass, age, phone, addr, title, email) VALUES(#{name}, #{gender}, #{inClass}, #{age}, #{phone}, #{addr}, #{title}, #{email})
+    </insert>
+
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM Teachers WHERE id=#{id}
+    </delete>
+
+    <delete id="deleteByCondition" parameterType="com.example.backend_crud.entity.Teachers">
+        DELETE FROM Teachers
+        <where>
+            <if test="name != null and name != ''">
+                OR name LIKE CONCAT('%',#{name},'%')
+            </if>
+
+            <if test="minAge != null or maxAge != null">
+                <choose>
+                    <when test="minAge != null and maxAge != null">
+                        OR (age BETWEEN #{ageStart} AND #{ageEnd})
+                    </when>
+                    <when test="minAge != null">
+                        OR age &gt;= #{ageStart}
+                    </when>
+                    <when test="maxAge != null">
+                        OR age &lt;= #{ageEnd}
+                    </when>
+                </choose>
+            </if>
+
+            <if test="gender != null and gender != ''">
+                OR gender=#{gender}
+            </if>
+
+            <if test="phone != null and phone != ''">
+                OR phone=#{phone}
+            </if>
+
+            <if test="addr != null and addr != ''">
+                OR addr LIKE CONCAT('%',#{addr},'%')
+            </if>
+
+            <if test="inClass != null">
+                OR inClass=#{inClass}
+            </if>
+            <if test="title != null and title != ' '">
+                OR title=#{title}
+            </if>
+
+            <if test="email != null and email != ' '">
+                OR email=#{email}
+            </if>
+        </where>
+    </delete>
+
 </mapper>

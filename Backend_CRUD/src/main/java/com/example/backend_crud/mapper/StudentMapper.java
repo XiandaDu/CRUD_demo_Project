@@ -31,7 +31,7 @@ public interface StudentMapper {
                            @Param("addr") String addr);
 
 
-    void putById(@Param("id") Long id);
+    void putById(Students students);
 
 
     void postStudent(@Param("name") String name,
