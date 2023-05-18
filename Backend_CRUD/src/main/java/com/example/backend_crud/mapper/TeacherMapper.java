@@ -4,8 +4,6 @@ import com.example.backend_crud.entity.Teachers;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @Mapper

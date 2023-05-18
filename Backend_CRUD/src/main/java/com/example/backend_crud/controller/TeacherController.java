@@ -1,6 +1,7 @@
 package com.example.backend_crud.controller;
 
 import com.example.backend_crud.entity.Teachers;
+import com.example.backend_crud.entity.TeacherPassParam;
 import com.example.backend_crud.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,39 +12,41 @@ import java.util.List;
 @RequestMapping("/teacher")
 public class TeacherController {
     @Autowired
-    private TeacherService TeacherService;
+    private TeacherService teacherService;
 
     @GetMapping("/getAll")
     public List<Teachers> getAll() {
-        return TeacherService.getAll();
+        return teacherService.getAll();
     }
 
     @GetMapping("/get/{id}")
     public Teachers getById(@PathVariable Long id) {
-        return TeacherService.getById(id);
+        return teacherService.getById(id);
     }
 
     @GetMapping("/getByCondition")
-    public List<Teachers> getByCondition(String name, String gender, Integer inClass, Integer minAge, Integer maxAge, String phone, String addr, String title, String email) {
-        return TeacherService.getByCondition(name, gender, inClass, minAge, maxAge, phone, addr,title,email);
+    public List<Teachers> getByCondition(TeacherPassParam teacherPassParam, Integer minAge, Integer maxAge) {
+        return teacherService.getByCondition(teacherPassParam, minAge, maxAge);
     }
 
 
     @PutMapping("/put")
-    public void putById(@RequestBody Teachers Teachers) {
-        TeacherService.putById(Teachers);
+    public void putById(Long id ,TeacherPassParam teacherPassParam) {
+        teacherService.putById(id, teacherPassParam);
     }
+
     @DeleteMapping("/delete/{id}")
     public void deleteById(@PathVariable Long id) {
-        TeacherService.deleteById(id);
+        teacherService.deleteById(id);
     }
+
     @DeleteMapping("/deleteByCondition")
-    public void deleteByCondition(String name, String gender, Integer inClass, Integer minAge, Integer maxAge, String phone, String addr, String title, String email) {
-        TeacherService.deleteByCondition(name, gender, inClass, minAge, maxAge, phone, addr,title,email);
+    public void deleteByCondition(TeacherPassParam teacherPassParam, Integer minAge, Integer maxAge) {
+        teacherService.deleteByCondition(teacherPassParam, minAge, maxAge);
     }
 
     @PostMapping("/post")
-    public void postTeacher(String name, String gender, Integer inClass, Integer age, String phone, String addr, String title, String email) {
-        TeacherService.postTeacher(name, gender, inClass, age, phone, addr,title,email);
+    public void postTeacher(Teachers teachers) {
+        teacherService.postTeacher(teachers);
     }
 }

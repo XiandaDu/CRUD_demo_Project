@@ -1,39 +1,75 @@
 package com.example.backend_crud.service;
 
+import com.example.backend_crud.entity.TeacherPassParam;
 import com.example.backend_crud.entity.Teachers;
 import com.example.backend_crud.mapper.TeacherMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class TeacherService {
     @Autowired
-    private TeacherMapper TeacherMapper;
+    private TeacherMapper teacherMapper;
 
     public List<Teachers> getAll(){
-        return TeacherMapper.getAll();
+        return teacherMapper.getAll();
     }
     public Teachers getById(Long id){
-        return TeacherMapper.getById(id);
+        return teacherMapper.getById(id);
     }
-    public List<Teachers> getByCondition(String name, String gender, Integer inClass, Integer minAge, Integer maxAge, String phone, String addr, String title, String email){
-        return TeacherMapper.getByCondition(name, gender, inClass, minAge, maxAge, phone, addr, title, email);
+    public List<Teachers> getByCondition(TeacherPassParam teacherPassParam, Integer minAge, Integer maxAge){
+        return teacherMapper.getByCondition (teacherPassParam.getName(),
+                teacherPassParam.getGender(),
+                minAge,
+                maxAge,
+                teacherPassParam.getInClass(),
+                teacherPassParam.getTitle(),
+                teacherPassParam.getPhone(),
+                teacherPassParam.getEmail(),
+                teacherPassParam.getAddr());
     }
 
     public void deleteById(Long id){
-        TeacherMapper.deleteById(id);
+        teacherMapper.deleteById(id);
     }
-    public void deleteByCondition(String name, String gender, Integer inClass, Integer minAge, Integer maxAge, String phone, String addr, String title, String email){
-        TeacherMapper.deleteByCondition(name, gender, inClass, minAge, maxAge, phone, addr, title, email);
+    public void deleteByCondition(TeacherPassParam teacherPassParam, Integer minAge, Integer maxAge){
+        teacherMapper.deleteByCondition(teacherPassParam.getName(),
+                teacherPassParam.getGender(),
+                minAge,
+                maxAge,
+                teacherPassParam.getInClass(),
+                teacherPassParam.getTitle(),
+                teacherPassParam.getPhone(),
+                teacherPassParam.getEmail(),
+                teacherPassParam.getAddr());
     }
 
-    public void putById(Teachers Teachers){
-        TeacherMapper.putById(Teachers);
+    public void putById(Long id, TeacherPassParam teacherPassParam){
+        Teachers teachers = new Teachers(
+                id,
+                teacherPassParam.getName(),
+                teacherPassParam.getGender(),
+                teacherPassParam.getAge(),
+                teacherPassParam.getInClass(),
+                teacherPassParam.getTitle(),
+                teacherPassParam.getPhone(),
+                teacherPassParam.getEmail(),
+                teacherPassParam.getAddr() );
+        teacherMapper.putById(teachers);
     }
 
-
-    public void postTeacher(String name, String gender, Integer inClass, Integer age, String phone, String addr, String title, String email){
-        TeacherMapper.postTeacher(name, gender, inClass, age, phone, addr, title, email);
+    public void postTeacher(Teachers teachers){
+        teacherMapper.postTeacher(
+                teachers.getName(),
+                teachers.getGender(),
+                teachers.getAge(),
+                teachers.getInClass(),
+                teachers.getTitle(),
+                teachers.getPhone(),
+                teachers.getEmail(),
+                teachers.getAddr());
     }
+
 }

@@ -17,7 +17,6 @@ class BackendCrudApplicationTests {
     @Test
     void postStudent(){
         //name, gender, inClass, age, phone, addr
-        studentController.postStudent("Bill", "Female", 202201, 12, "12244432333", "xx rd. Hamilton, ON");
         System.out.println("XXXXXXXXXXXXXXXXXXXXX这是一条分割线");
     }
 

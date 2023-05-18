@@ -111,7 +111,8 @@ public class Teachers {
         this.updateTime = updateTime;
     }
 
-    public Teachers(String name, String gender, Integer age, Integer inClass, String title, String phone, String email, String addr) {
+    public Teachers(Long id, String name, String gender, Integer age, Integer inClass, String title, String phone, String email, String addr) {
+        this.id = id;
         this.name = name;
         this.gender = gender;
         this.age = age;

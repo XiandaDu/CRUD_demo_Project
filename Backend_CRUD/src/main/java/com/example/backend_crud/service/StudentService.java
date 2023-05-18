@@ -1,5 +1,6 @@
 package com.example.backend_crud.service;
 
+import com.example.backend_crud.entity.StudentPassParam;
 import com.example.backend_crud.entity.Students;
 import com.example.backend_crud.mapper.StudentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,25 +19,48 @@ public class StudentService {
     public Students getById(Long id){
         return studentMapper.getById(id);
     }
-    public List<Students> getByCondition(String name, String gender, Integer inClass, Integer minAge, Integer maxAge, String phone, String addr){
-        return studentMapper.getByCondition(name, gender, inClass, minAge, maxAge, phone, addr);
+    public List<Students> getByCondition(StudentPassParam studentPassParam, Integer minAge, Integer maxAge){
+        return studentMapper.getByCondition(studentPassParam.getName(),
+                                            studentPassParam.getGender(),
+                                            studentPassParam.getInClass(),
+                                            minAge,
+                                            maxAge,
+                                            studentPassParam.getPhone(),
+                                            studentPassParam.getAddr() );
     }
 
     public void deleteById(Long id){
         studentMapper.deleteById(id);
     }
-    public void deleteByCondition(String name, String gender, Integer inClass, Integer minAge, Integer maxAge, String phone, String addr){
-        studentMapper.deleteByCondition(name, gender, inClass, minAge, maxAge, phone, addr);
+    public void deleteByCondition(StudentPassParam studentPassParam, Integer minAge, Integer maxAge){
+        studentMapper.deleteByCondition(studentPassParam.getName(),
+                                        studentPassParam.getGender(),
+                                        studentPassParam.getInClass(),
+                                        minAge,
+                                        maxAge,
+                                        studentPassParam.getPhone(),
+                                        studentPassParam.getAddr() );
     }
 
-    public void putById(Long id, String name, String gender, Integer inClass, Integer age, String phone, String addr){
-        Students students = new Students(id, name, gender, inClass, age, phone, addr);
+    public void putById(Long id, StudentPassParam studentPassParam){
+        Students students = new Students(id,
+                                        studentPassParam.getName(),
+                                        studentPassParam.getGender(),
+                                        studentPassParam.getInClass(),
+                                        studentPassParam.getAge(),
+                                        studentPassParam.getPhone(),
+                                        studentPassParam.getAddr() );
         studentMapper.putById(students);
     }
 
 
-    public void postStudent( String name, String gender, Integer inClass, Integer age, String phone, String addr){
-        studentMapper.postStudent(name, gender, inClass, age, phone, addr);
+    public void postStudent(Students students){
+        studentMapper.postStudent(  students.getName(),
+                                    students.getGender(),
+                                    students.getInClass(),
+                                    students.getAge(),
+                                    students.getPhone(),
+                                    students.getAddr());
     }
 
 }
