@@ -26,8 +26,6 @@
         </div>
     </div>
 
-    <p>{{ChangePage}} test in LB</p>
-
 </template>
 
 <script>

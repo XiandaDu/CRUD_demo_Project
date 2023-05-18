@@ -1,7 +1,6 @@
 
 <template>
     <LB :to-top="OnPage" @on-change-page="handleChangePage"></LB>
-    <p>TopFile Test {{OnPage}}</p>
         <p v-if="OnPage===2"><Teachers></Teachers></p>
         <p v-else-if="OnPage===1"><Students></Students></p>
         <p v-else-if="OnPage===3"><Classes></Classes></p>
