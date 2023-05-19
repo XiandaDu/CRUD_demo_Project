@@ -30,10 +30,9 @@ public class StudentController {
         return studentService.getByCondition(studentPassParam, minAge, maxAge);
     }
 
-
     @PutMapping("/put")
-    public void putById(Long id ,StudentPassParam studentPassParam) {
-        studentService.putById(id, studentPassParam);
+    public void putById(@RequestBody Students students) {
+        studentService.putById(students);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -47,7 +46,7 @@ public class StudentController {
     }
 
     @PostMapping("/post")
-    public void postStudent(Students students) {
+    public void postStudent(@RequestBody Students students) {
         studentService.postStudent(students);
     }
 }

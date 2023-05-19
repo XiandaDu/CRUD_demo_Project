@@ -42,15 +42,15 @@ public class StudentService {
                                         studentPassParam.getAddr() );
     }
 
-    public void putById(Long id, StudentPassParam studentPassParam){
-        Students students = new Students(id,
-                                        studentPassParam.getName(),
-                                        studentPassParam.getGender(),
-                                        studentPassParam.getInClass(),
-                                        studentPassParam.getAge(),
-                                        studentPassParam.getPhone(),
-                                        studentPassParam.getAddr() );
-        studentMapper.putById(students);
+    public void putById(Students students){
+        Students student = new Students(students.getId(),
+                                        students.getName(),
+                                        students.getGender(),
+                                        students.getInClass(),
+                                        students.getAge(),
+                                        students.getPhone(),
+                                        students.getAddr() );
+         studentMapper.putById(student);
     }
 
 
