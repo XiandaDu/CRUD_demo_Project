@@ -79,7 +79,7 @@
         INSERT INTO Teachers(name, gender, inClass, age, phone, addr, title, email, createTime) VALUES(#{name}, #{gender}, #{inClass}, #{age}, #{phone}, #{addr}, #{title}, #{email},NOW())
     </insert>
 
-    <delete id="deleteById" parameterType="int">
+    <delete id="deleteById" parameterType="Long">
         DELETE FROM Teachers WHERE id=#{id}
     </delete>
 

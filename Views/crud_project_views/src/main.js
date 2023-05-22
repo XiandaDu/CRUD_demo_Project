@@ -1,6 +1,7 @@
 import './assets/main.css'
 
 import { createApp } from 'vue'
-import App from './App.vue'
-import tmp from './sample.vue'
-createApp(tmp).mount('#app')
+import top from './topFile.vue'
+import router from "@/components/router/index";
+
+createApp(top).use(router).mount('#app')

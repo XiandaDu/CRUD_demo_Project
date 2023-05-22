@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/teacher")
+@CrossOrigin
 public class TeacherController {
     @Autowired
     private TeacherService teacherService;
@@ -31,8 +32,8 @@ public class TeacherController {
 
 
     @PutMapping("/put")
-    public void putById(Long id ,TeacherPassParam teacherPassParam) {
-        teacherService.putById(id, teacherPassParam);
+    public void putById(@RequestBody Teachers teachers) {
+        teacherService.putById(teachers);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -46,7 +47,7 @@ public class TeacherController {
     }
 
     @PostMapping("/post")
-    public void postTeacher(Teachers teachers) {
+    public void postTeacher(@RequestBody Teachers teachers) {
         teacherService.postTeacher(teachers);
     }
 }

@@ -46,18 +46,18 @@ public class TeacherService {
                 teacherPassParam.getAddr());
     }
 
-    public void putById(Long id, TeacherPassParam teacherPassParam){
-        Teachers teachers = new Teachers(
-                id,
-                teacherPassParam.getName(),
-                teacherPassParam.getGender(),
-                teacherPassParam.getAge(),
-                teacherPassParam.getInClass(),
-                teacherPassParam.getTitle(),
-                teacherPassParam.getPhone(),
-                teacherPassParam.getEmail(),
-                teacherPassParam.getAddr() );
-        teacherMapper.putById(teachers);
+    public void putById(Teachers teachers){
+        Teachers teacher = new Teachers(
+                teachers.getId(),
+                teachers.getName(),
+                teachers.getGender(),
+                teachers.getAge(),
+                teachers.getInClass(),
+                teachers.getTitle(),
+                teachers.getPhone(),
+                teachers.getEmail(),
+                teachers.getAddr());
+        teacherMapper.putById(teacher);
     }
 
     public void postTeacher(Teachers teachers){

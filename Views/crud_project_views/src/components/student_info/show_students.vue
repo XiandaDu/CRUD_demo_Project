@@ -1,6 +1,7 @@
 <template>
     <div class="container">
-    <h2>Student Information</h2>
+    <h1>Student Information</h1>
+        <div v-if="refresh">
     <table>
         <thead>
         <tr>
@@ -22,7 +23,7 @@
             <td>{{ student.age }}</td>
             <td>{{ student.phone }}</td>
             <td>{{ student.addr}}</td>
-            <td>{{student.createTime}}</td>
+            <td>{{ student.createTime.substring(0,10) }}</td>
             <td>
                 <button @click="editMode(student.id)">Edit</button>
                 <button @click="deleteStudent(student.id)">Delete</button>
@@ -30,6 +31,7 @@
         </tr>
         </tbody>
     </table>
+        </div>
         <div class="pageControl">
             <button @click="prevPage">Last Page</button>
             {{ currentPage }}
@@ -91,8 +93,8 @@ export default {
                 id:0,
                 name:"",
                 gender:"",
-                inClass:"",
-                age:"",
+                inClass:0,
+                age:0,
                 phone:"",
                 addr:"",
                 createTime:"",
@@ -102,12 +104,13 @@ export default {
             currentPage: 1,
             showEditStudent: false,
             showAddStudent: false,
+            refresh: true,
             newStudent: {
                 id:0,
                 name:"",
                 gender:"",
-                inClass:"",
-                age:"",
+                inClass:0,
+                age:0,
                 phone:"",
                 addr:"",
                 createTime:"",
@@ -181,8 +184,9 @@ export default {
             if ((this.currentPage)*this.perPage < this.totalPages) {
                 this.currentPage++
             }
-        }
+        },
     },
+
     mounted() {
         this.getAllStudents();
     },
@@ -204,7 +208,7 @@ export default {
 .container{
     position:absolute;
     left: 22vw;
-    top: 7vw;
+    top: 6vw;
     width: 75vw;
     height: 80vw;
 }
@@ -306,4 +310,5 @@ button[type="addButton"]{
 button[type="addButton"]:hover {
     background-color: #24244f;
 }
+
 </style>

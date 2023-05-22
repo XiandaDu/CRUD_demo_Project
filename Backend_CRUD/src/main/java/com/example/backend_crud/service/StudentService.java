@@ -19,12 +19,12 @@ public class StudentService {
     public Students getById(Long id){
         return studentMapper.getById(id);
     }
-    public List<Students> getByCondition(StudentPassParam studentPassParam, Integer minAge, Integer maxAge){
+    public List<Students> getByCondition(StudentPassParam studentPassParam){
         return studentMapper.getByCondition(studentPassParam.getName(),
                                             studentPassParam.getGender(),
                                             studentPassParam.getInClass(),
-                                            minAge,
-                                            maxAge,
+                                            studentPassParam.getMinAge(),
+                                            studentPassParam.getMaxAge(),
                                             studentPassParam.getPhone(),
                                             studentPassParam.getAddr() );
     }
@@ -32,12 +32,12 @@ public class StudentService {
     public void deleteById(Long id){
         studentMapper.deleteById(id);
     }
-    public void deleteByCondition(StudentPassParam studentPassParam, Integer minAge, Integer maxAge){
+    public void deleteByCondition(StudentPassParam studentPassParam){
         studentMapper.deleteByCondition(studentPassParam.getName(),
                                         studentPassParam.getGender(),
                                         studentPassParam.getInClass(),
-                                        minAge,
-                                        maxAge,
+                                        studentPassParam.getMinAge(),
+                                        studentPassParam.getMaxAge(),
                                         studentPassParam.getPhone(),
                                         studentPassParam.getAddr() );
     }
