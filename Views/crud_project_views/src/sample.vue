@@ -1,6 +1,4 @@
-
 <template>
-
     <LB :to-top="OnPage" @on-change-page="handleChangePage"></LB>
         <p v-if="OnPage===2"><Teachers></Teachers></p>
         <p v-else-if="OnPage===1"><Students></Students></p>
@@ -26,7 +24,7 @@ export default {
     },
     data() {
         return {
-            OnPage: 0
+            OnPage: 3
         };
     },
     methods: {

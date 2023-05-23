@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend_crud.DAO.LogMapper">
+    <resultMap id="LogResultMap" type="com.example.backend_crud.entity.Log">
+        <id property="id" column="id"/>
+        <result property="action" column="action"/>
+        <result property="objectType" column="objectType"/>
+        <result property="modiStudId" column="modiStudId"/>
+        <result property="modiTeacId" column="modiTeacId"/>
+        <result property="createTime" column="createTime" javaType="java.util.Date"/>
+    </resultMap>
+
+    <select id="getAll" resultType="com.example.backend_crud.entity.Log">
+        SELECT * FROM Log
+    </select>
+
+    <insert id="postLog" parameterType="com.example.backend_crud.entity.Log">
+        INSERT INTO Log(action, objectType, modiStudId, modiTeacId, createTime) VALUES(#{action}, #{objectType}, #{modiStudId}, #{modiTeacId}, NOW())
+    </insert>
+</mapper>

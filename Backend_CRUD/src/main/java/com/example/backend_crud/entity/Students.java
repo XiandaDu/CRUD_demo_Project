@@ -1,5 +1,4 @@
 package com.example.backend_crud.entity;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

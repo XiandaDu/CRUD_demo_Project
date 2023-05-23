@@ -31,7 +31,7 @@
             </table>
             <div class="pageControl">
                 <button @click="prevPage">Last Page</button>
-                {{ currentPage }}
+                {{ currentPage }}/{{Math.ceil(totalPages/perPage)}}
                 <button @click="nextPage">Next Page</button>
             </div>
         </div>
@@ -67,7 +67,7 @@
             </table>
             <div class="pageControl">
                 <button @click="prevPage">Last Page</button>
-                {{ currentPage }}
+                {{ currentPage }}/{{Math.ceil(totalPages/perPage)}}
                 <button @click="nextPage">Next Page</button>
             </div>
         </div>
@@ -198,8 +198,20 @@ import axios from 'axios'
                   this.currentPage = 1;
               }
           },
-          advancedDelete(){
-
+          advancedDelete(num){
+              if (num===1){
+                  if (confirm("This action cannot be revoked. Are you sure you want to do that? ")) {
+                      axios.delete("http://localhost:8081/student/deleteByCondition", {params: {...this.operationCondition}}).then(() => {
+                          alert("Delete Successfully");
+                      });
+                  }
+              } else {
+                  if (confirm("This action cannot be revoked. Are you sure you want to do that? ")) {
+                      axios.delete("http://localhost:8081/teacher/deleteByCondition", {params: {...this.operationCondition}}).then(() => {
+                          alert("Delete Successfully");
+                      });
+                  }
+              }
           },
           deleteMode(num){
               if (num===1) {
@@ -244,6 +256,7 @@ import axios from 'axios'
               currentPage: 1,
               resultList: [],
               operationCondition: {
+                  id:0,
                   name:"",
                   gender:"",
                   inClass:"",
@@ -280,7 +293,7 @@ import axios from 'axios'
 .result{
     position: absolute;
     top: 6vw;
-    left: 6vw;
+    left: 3vw;
 }
 
 .deleteStudent,

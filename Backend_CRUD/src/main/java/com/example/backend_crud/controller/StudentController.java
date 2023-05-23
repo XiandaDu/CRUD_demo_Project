@@ -41,7 +41,7 @@ public class StudentController {
     }
 
     @DeleteMapping("/deleteByCondition")
-    public void deleteByCondition(@RequestBody StudentPassParam studentPassParam) {
+    public void deleteByCondition(StudentPassParam studentPassParam) {
         studentService.deleteByCondition(studentPassParam);
     }
 

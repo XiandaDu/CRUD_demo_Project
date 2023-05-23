@@ -1,43 +1,46 @@
-package com.example.backend_crud.mapper;
+package com.example.backend_crud.DAO;
 
-import com.example.backend_crud.entity.Students;
+import com.example.backend_crud.entity.Teachers;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Mapper
 @Repository
-public interface StudentMapper {
-    List<Students> getAll();
-    List<Students> getByCondition(@Param("name") String name,
+public interface TeacherMapper {
+    List<Teachers> getAll();
+    List<Teachers> getByCondition(@Param("name") String name,
                                   @Param("gender") String gender,
-                                  @Param("inClass") Integer inClass,
                                   @Param("minAge") Integer minAge,
                                   @Param("maxAge") Integer maxAge,
+                                  @Param("inClass") Integer inClass,
+                                  @Param("title") String title,
                                   @Param("phone") String phone,
+                                  @Param("email") String email,
                                   @Param("addr") String addr);
-    Students getById(@Param("id") Long id);
-
+    Teachers getById(@Param("id") Long id);
 
     void deleteById(@Param("id") Long id);
     void deleteByCondition(@Param("name") String name,
                            @Param("gender") String gender,
-                           @Param("inClass") Integer inClass,
                            @Param("minAge") Integer minAge,
                            @Param("maxAge") Integer maxAge,
+                           @Param("inClass") Integer inClass,
+                           @Param("title") String title,
                            @Param("phone") String phone,
+                           @Param("email") String email,
                            @Param("addr") String addr);
 
+    void putById(Teachers teachers);
 
-    void putById(Students students);
 
-
-    void postStudent(@Param("name") String name,
+    void postTeacher(@Param("name") String name,
                      @Param("gender") String gender,
-                     @Param("inClass") Integer inClass,
                      @Param("age") Integer age,
+                     @Param("inClass") Integer inClass,
+                     @Param("title") String title,
                      @Param("phone") String phone,
+                     @Param("email") String email,
                      @Param("addr") String addr);
 }

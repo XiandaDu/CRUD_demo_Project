@@ -30,7 +30,7 @@
                 <td>{{ teacher.createTime}}</td>
                 <td>
                     <button @click="editMode(teacher.id)">Edit</button>
-                    <button @click="deleteTeacher(teacher.id)">Delete</button>
+                    <button @click="deleteTeacher(teacher)">Delete</button>
                 </td>
             </tr>
             </tbody>
@@ -132,6 +132,12 @@ export default {
                 createTime:"",
                 updateTime:"",
             },
+            newLog: {
+                action:"",
+                objectType:"",
+                modiStudId:"",
+                modiTeacId:"",
+            },
         };
     },
     methods: {
@@ -145,10 +151,17 @@ export default {
                 this.currentTeacher = response.data;
             })
         },
-        deleteTeacher(id){
+        deleteTeacher(teacher){
+            //log part start
+            this.newLog.action +="Delete teacher with information " + this.getString(teacher)
+            this.newLog.objectType = "teacher";
+            this.newLog.modiStudId = 0;
+            this.newLog.modiTeacId = teacher.id;
+            axios.post(`http://localhost:8081/log/post`, this.newLog);
+            //log part end
             if (confirm("Are you sure you want to delete this teacher?")) {
-                axios.delete(`http://localhost:8081/teacher/delete/${id}`).then(() => {
-                    this.teacherList = this.teacherList.filter((teacher) => teacher.id !== id);
+                axios.delete(`http://localhost:8081/teacher/delete/${teacher.id}`).then(() => {
+                    this.teacherList = this.teacherList.filter((teac) => teac.id !== teacher.id);
                     alert("Delete Successfully!");
                 });
             }
@@ -158,19 +171,31 @@ export default {
                 .then(() => {
                     this.showEditTeacher = false;
                     alert(`Edit Successful`);
+                    //log part start
+                    this.newLog.action +="Updated into "+ this.getString(this.currentTeacher)
+                    this.newLog.objectType = "teacher";
+                    this.newLog.modiStudId = 0;
+                    this.newLog.modiTeacId = this.currentTeacher.id;
+                    axios.post(`http://localhost:8081/log/post`, this.newLog);
+                    //log part end
                 })
                 .catch(() => {
                     alert("Failed to update");
                 });
-            this.refresh = false;
-            this.getAllTeachers();
-            this.refresh = true;
         },
         addTeacher(){
             alert(this.newTeacher.title + this.newTeacher.addr + this.newTeacher.email);
             axios.post(`http://localhost:8081/teacher/post`, this.newTeacher)
                 .then((response) => {
                     alert('Successfully added teacher!');
+                    //log part start
+                    this.newLog.action +="New teacher created "+ this.getString(this.newTeacher)
+                    this.newLog.objectType = "teacher";
+                    this.newLog.modiStudId = 0;
+                    this.newLog.modiTeacId = response.data.id;
+                    axios.post(`http://localhost:8081/log/post`, this.newLog);
+                    //log part end
+
                     this.teacherList.push(response.data);
                     this.newTeacher = {
                         id:"",
@@ -224,6 +249,11 @@ export default {
             const start = (this.currentPage - 1) * this.perPage
             const end = start + this.perPage
             return this.teacherList.slice(start, end)
+        },
+        getString: function (){
+            return function(data) {
+                return JSON.stringify(data)
+            }
         }
     },
 }

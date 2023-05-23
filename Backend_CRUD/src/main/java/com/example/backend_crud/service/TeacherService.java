@@ -2,7 +2,7 @@ package com.example.backend_crud.service;
 
 import com.example.backend_crud.entity.TeacherPassParam;
 import com.example.backend_crud.entity.Teachers;
-import com.example.backend_crud.mapper.TeacherMapper;
+import com.example.backend_crud.DAO.TeacherMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

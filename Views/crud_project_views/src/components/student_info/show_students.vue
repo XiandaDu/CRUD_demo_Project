@@ -26,7 +26,7 @@
             <td>{{ student.createTime.substring(0,10) }}</td>
             <td>
                 <button @click="editMode(student.id)">Edit</button>
-                <button @click="deleteStudent(student.id)">Delete</button>
+                <button @click="deleteStudent(student)">Delete</button>
             </td>
         </tr>
         </tbody>
@@ -116,6 +116,12 @@ export default {
                 createTime:"",
                 updateTime:"",
             },
+            newLog: {
+                action:"",
+                objectType:"",
+                modiStudId:"",
+                modiTeacId:"",
+            },
         };
     },
     methods: {
@@ -129,10 +135,17 @@ export default {
                 this.currentStudent = response.data;
             })
         },
-        deleteStudent(id){
+        deleteStudent(student){
+            //log part start
+            this.newLog.action +="Delete studennt which has information " + this.getString(student)
+            this.newLog.objectType = "student";
+            this.newLog.modiStudId = student.id;
+            this.newLog.modiTeacId = 0;
+            axios.post(`http://localhost:8081/log/post`, this.newLog);
+            //log part end
              if (confirm("Are you sure you want to delete this student?")) {
-                axios.delete(`http://localhost:8081/student/delete/${id}`).then(() => {
-                    this.studentList = this.studentList.filter((student) => student.id !== id);
+                axios.delete(`http://localhost:8081/student/delete/${student.id}`).then(() => {
+                    this.studentList = this.studentList.filter((stud) => stud.id !== student.id);
                     alert("Delete Successfully!");
                 });
             }
@@ -142,6 +155,13 @@ export default {
                 .then(() => {
                     this.showEditStudent = false;
                     alert(`Edit Successful`);
+                    //log part start
+                    this.newLog.action +="Updated into "+ this.getString(this.currentStudent)
+                    this.newLog.objectType = "student";
+                    this.newLog.modiStudId = this.currentStudent.id;
+                    this.newLog.modiTeacId = 0;
+                    axios.post(`http://localhost:8081/log/post`, this.newLog);
+                    //log part end
                 })
                 .catch(() => {
                     alert("Failed to update");
@@ -151,6 +171,13 @@ export default {
             axios.post(`http://localhost:8081/student/post`, this.newStudent)
                 .then((response) => {
                     alert('Successfully added student!');
+                    //log part start
+                    this.newLog.action +="New student created "+ this.getString(this.newStudent)
+                    this.newLog.objectType = "student";
+                    this.newLog.modiStudId = response.data.id;
+                    this.newLog.modiTeacId = 0;
+                    axios.post(`http://localhost:8081/log/post`, this.newLog);
+                    //log part end
                     this.studentList.push(response.data);
                     this.newStudent = {
                         id:"",
@@ -199,6 +226,11 @@ export default {
             const start = (this.currentPage - 1) * this.perPage
             const end = start + this.perPage
             return this.studentList.slice(start, end)
+        },
+        getString: function (){
+            return function(data) {
+                return JSON.stringify(data)
+            }
         }
     },
 }

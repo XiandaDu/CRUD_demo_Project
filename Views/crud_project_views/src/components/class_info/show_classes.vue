@@ -32,7 +32,7 @@
                     <td>{{ student.createTime.substring(0,10) }}</td>
                     <td>
                         <button @click="editMode(student.id)">Edit</button>
-                        <button @click="deleteStudent(student.id)">Delete</button>
+                        <button @click="deleteStudent(student)">Delete</button>
                     </td>
                 </tr>
                 </tbody>
@@ -118,7 +118,7 @@
                     <td>{{ teacher.createTime}}</td>
                     <td>
                         <button @click="editModeTeacher(teacher.id)">Edit</button>
-                        <button @click="deleteTeacher(teacher.id)">Delete</button>
+                        <button @click="deleteTeacher(teacher)">Delete</button>
                     </td>
                 </tr>
                 </tbody>
@@ -249,6 +249,12 @@ export default {
                 createTime:"",
                 updateTime:"",
             },
+            newLog: {
+                action:"",
+                objectType:"",
+                modiStudId:"",
+                modiTeacId:"",
+            },
         };
     },
     methods: {
@@ -262,19 +268,34 @@ export default {
                 this.currentStudent = response.data;
             })
         },
-        deleteStudent(id){
+        deleteStudent(student){
+            //log part start
+            this.newLog.action +="Delete studennt which has information " + this.getString(student)
+            this.newLog.objectType = "student";
+            this.newLog.modiStudId = student.id;
+            this.newLog.modiTeacId = 0;
+            axios.post(`http://localhost:8081/log/post`, this.newLog);
+            //log part end
             if (confirm("Are you sure you want to delete this student?")) {
-                axios.delete(`http://localhost:8081/student/delete/${id}`).then(() => {
-                    this.studentList = this.studentList.filter((student) => student.id !== id);
+                axios.delete(`http://localhost:8081/student/delete/${student.id}`).then(() => {
+                    this.studentList = this.studentList.filter((stu) => stu.id !== student.id);
                     alert("Delete Successfully!");
                 });
             }
+
         },
         updateStudent(){
             axios.put(`http://localhost:8081/student/put`, this.currentStudent)
                 .then(() => {
                     this.showEditStudent = false;
                     alert(`Edit Successful`);
+                    //log part start
+                    this.newLog.action +="Updated into "+ this.getString(this.currentStudent)
+                    this.newLog.objectType = "student";
+                    this.newLog.modiStudId = this.currentStudent.id;
+                    this.newLog.modiTeacId = 0;
+                    axios.post(`http://localhost:8081/log/post`, this.newLog);
+                    //log part end
                 })
                 .catch(() => {
                     alert("Failed to update");
@@ -284,6 +305,15 @@ export default {
             axios.post(`http://localhost:8081/student/post`, this.newStudent)
                 .then((response) => {
                     alert('Successfully added student!');
+
+                    //log part start
+                    this.newLog.action +="New student created "+ this.getString(this.newStudent)
+                    this.newLog.objectType = "student";
+                    this.newLog.modiStudId = response.data.id;
+                    this.newLog.modiTeacId = 0;
+                    axios.post(`http://localhost:8081/log/post`, this.newLog);
+                    //log part end
+
                     this.studentList.push(response.data);
                     this.newStudent = {
                         id:"",
@@ -329,10 +359,18 @@ export default {
                 this.currentTeacher = response.data;
             })
         },
-        deleteTeacher(id){
+        deleteTeacher(teacher){
+            //log part start
+            this.newLog.action +="Delete teacher with information " + this.getString(teacher)
+            this.newLog.objectType = "teacher";
+            this.newLog.modiStudId = 0;
+            this.newLog.modiTeacId = teacher.id;
+            axios.post(`http://localhost:8081/log/post`, this.newLog);
+            //log part end
+
             if (confirm("Are you sure you want to delete this teacher?")) {
-                axios.delete(`http://localhost:8081/teacher/delete/${id}`).then(() => {
-                    this.teacherList = this.teacherList.filter((teacher) => teacher.id !== id);
+                axios.delete(`http://localhost:8081/teacher/delete/${teacher.id}`).then(() => {
+                    this.teacherList = this.teacherList.filter((teac) => teac.id !== teacher.id);
                     alert("Delete Successfully!");
                 });
             }
@@ -342,19 +380,32 @@ export default {
                 .then(() => {
                     this.showEditTeacher = false;
                     alert(`Edit Successful`);
+
+                    //log part start
+                    this.newLog.action +="Updated into "+ this.getString(this.currentTeacher)
+                    this.newLog.objectType = "teacher";
+                    this.newLog.modiStudId = 0;
+                    this.newLog.modiTeacId = this.currentStudent.id;
+                    axios.post(`http://localhost:8081/log/post`, this.newLog);
+                    //log part end
                 })
                 .catch(() => {
                     alert("Failed to update");
                 });
-            this.refresh = false;
-            this.getAllTeachers();
-            this.refresh = true;
         },
         addTeacher(){
-            alert(this.newTeacher.title + this.newTeacher.addr + this.newTeacher.email);
             axios.post(`http://localhost:8081/teacher/post`, this.newTeacher)
                 .then((response) => {
                     alert('Successfully added teacher!');
+
+                    //log part start
+                    this.newLog.action +="New teacher created "+ this.getString(this.newTeacher)
+                    this.newLog.objectType = "teacher";
+                    this.newLog.modiStudId = 0;
+                    this.newLog.modiTeacId = response.data.id;
+                    axios.post(`http://localhost:8081/log/post`, this.newLog);
+                    //log part end
+
                     this.teacherList.push(response.data);
                     this.newTeacher = {
                         id:"",
@@ -373,9 +424,6 @@ export default {
                 .catch(() => {
                     alert("Fail to add new teacher");
                 });
-            this.refresh = false;
-            this.getAllTeachers();
-            this.refresh = true;
         },
         editModeTeacher(id){
             this.getByIdTeacher(id);
@@ -432,6 +480,11 @@ export default {
             const start = (this.currentPageTeacher - 1) * this.perPageTeacher
             const end = start + this.perPageTeacher
             return this.teacherList.slice(start, end)
+        },
+        getString: function (){
+            return function(data) {
+                return JSON.stringify(data)
+            }
         }
     },
 }
@@ -500,14 +553,14 @@ button[type="addButton"]{
     background-color: #3f698c;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 5px 5px;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     position: absolute;
     right: 2vw;
     top: 0vw;
-    font-size: 25px;
+    font-size: 20px;
 }
 button[type="addButton"]:hover {
     background-color: #24244f;
