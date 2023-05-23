@@ -19,11 +19,11 @@ public class TeacherService {
     public Teachers getById(Long id){
         return teacherMapper.getById(id);
     }
-    public List<Teachers> getByCondition(TeacherPassParam teacherPassParam, Integer minAge, Integer maxAge){
+    public List<Teachers> getByCondition(TeacherPassParam teacherPassParam){
         return teacherMapper.getByCondition (teacherPassParam.getName(),
                 teacherPassParam.getGender(),
-                minAge,
-                maxAge,
+                teacherPassParam.getMinAge(),
+                teacherPassParam.getMaxAge(),
                 teacherPassParam.getInClass(),
                 teacherPassParam.getTitle(),
                 teacherPassParam.getPhone(),
@@ -34,11 +34,11 @@ public class TeacherService {
     public void deleteById(Long id){
         teacherMapper.deleteById(id);
     }
-    public void deleteByCondition(TeacherPassParam teacherPassParam, Integer minAge, Integer maxAge){
+    public void deleteByCondition(TeacherPassParam teacherPassParam){
         teacherMapper.deleteByCondition(teacherPassParam.getName(),
                 teacherPassParam.getGender(),
-                minAge,
-                maxAge,
+                teacherPassParam.getMinAge(),
+                teacherPassParam.getMaxAge(),
                 teacherPassParam.getInClass(),
                 teacherPassParam.getTitle(),
                 teacherPassParam.getPhone(),

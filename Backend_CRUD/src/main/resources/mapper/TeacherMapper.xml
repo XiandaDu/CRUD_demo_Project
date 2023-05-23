@@ -31,9 +31,9 @@
                 AND name LIKE CONCAT('%',#{name},'%')
             </if>
 
-            <if test="minAge != null or maxAge != null">
+            <if test="(minAge!= null and minAge != '') or (maxAge != null and maxAge != '')">
                 <choose>
-                    <when test="minAge != null and maxAge != null">
+                    <when test="(minAge!= null and minAge != '') and (maxAge != null and maxAge != '')">
                         AND age BETWEEN #{minAge} AND #{maxAge}
                     </when>
                     <when test="minAge != null">
@@ -57,16 +57,16 @@
                 AND addr LIKE CONCAT('%',#{addr},'%')
             </if>
 
-            <if test="inClass != null">
+            <if test="inClass != null and inClass!='' ">
                 AND inClass=#{inClass}
             </if>
 
-            <if test="title != null and title != ' '">
+            <if test="title != null and title != ''">
                 AND title=#{title}
             </if>
 
-            <if test="email != null and email != ' '">
-                AND email=#{email}
+            <if test="email != null and email != ''">
+                AND email LIKE CONCAT ('%', #{email}, '%')
             </if>
         </where>
     </select>
@@ -90,9 +90,9 @@
                 OR name LIKE CONCAT('%',#{name},'%')
             </if>
 
-            <if test="minAge != null or maxAge != null">
+            <if test="(minAge!= null and minAge != '') or (maxAge != null and maxAge != '')">
                 <choose>
-                    <when test="minAge != null and maxAge != null">
+                    <when test="(minAge!= null and minAge != '') and (maxAge != null and maxAge != '')">
                         OR (age BETWEEN #{minAge} AND #{maxAge})
                     </when>
                     <when test="minAge != null">
@@ -116,14 +116,14 @@
                 OR addr LIKE CONCAT('%',#{addr},'%')
             </if>
 
-            <if test="inClass != null">
+            <if test="inClass != null and inClass != ''">
                 OR inClass=#{inClass}
             </if>
-            <if test="title != null and title != ' '">
+            <if test="title != null and title != ''">
                 OR title=#{title}
             </if>
 
-            <if test="email != null and email != ' '">
+            <if test="email != null and email != ''">
                 OR email=#{email}
             </if>
         </where>

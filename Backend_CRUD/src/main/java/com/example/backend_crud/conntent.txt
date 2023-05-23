@@ -64,3 +64,12 @@ POST /operation_log：创建新的操作日志
 GET /operation_log/{id}：获取指定 id 的操作日志信息
 PUT /operation_log/{id}：更新指定 id 的操作日志信息
 DELETE /operation_log/{id}：删除指定 id 的操作日志信息
+
+{
+    "name": {% mock 'name' %},
+    "gender": {% 'pick' , ["Female", "Male", "NB"] %},
+    "inClass": {% mock 'integer' , 202201 , 202214 %},
+    "age": {% mock 'natural' , 9 , 16 %},
+    "phone": {% mock 'integer' , 1000000000 , 9999999999 %},
+    "addr": {% mock 'pick' , ["Alberta", "Manitoba", "Hamilton", "Markham", "Ottawa", "Scarbourough","Vancouver","Regina","Montreal","Quebec City","Saskatoon","Calgory","Victoria","Halifax","Fredicton","St. John","Waterloo","Kinston","London"] %}
+}

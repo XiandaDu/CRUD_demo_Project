@@ -29,9 +29,9 @@
                 AND name LIKE CONCAT('%',#{name},'%')
             </if>
 
-            <if test="minAge != null or maxAge != null">
+            <if test="(minAge!= null and minAge != '') or (maxAge != null and maxAge != '')">
                 <choose>
-                    <when test="minAge != null and maxAge != null">
+                    <when test="(minAge!= null and minAge != '') and (maxAge != null and maxAge != '')">
                         AND age BETWEEN #{minAge} AND #{maxAge}
                     </when>
                     <when test="minAge != null">
@@ -55,7 +55,7 @@
                 AND addr LIKE CONCAT('%',#{addr},'%')
             </if>
 
-            <if test="inClass != null">
+            <if test="inClass != null and inClass != ''">
                 AND inClass=#{inClass}
             </if>
         </where>
@@ -65,6 +65,8 @@
     <update id="putById" parameterType="com.example.backend_crud.entity.Students">
         UPDATE Students SET name=#{name}, gender=#{gender}, inClass=#{inClass}, age=#{age}, phone=#{phone}, addr=#{addr}, updateTime=NOW() WHERE id=#{id}
     </update>
+
+
 
     <insert id="postStudent" parameterType="com.example.backend_crud.entity.Students">
         INSERT INTO Students(name, gender, inClass, age, phone, addr, createTime) VALUES(#{name}, #{gender}, #{inClass}, #{age}, #{phone}, #{addr}, NOW())
@@ -81,9 +83,9 @@
                 OR name LIKE CONCAT('%',#{name},'%')
             </if>
 
-            <if test="minAge != null or maxAge != null">
+            <if test="(minAge!= null and minAge != '') or (maxAge != null and maxAge != '')">
                 <choose>
-                    <when test="minAge != null and maxAge != null">
+                    <when test="(minAge!= null and minAge != '') and (maxAge != null and maxAge != '')">
                         OR (age BETWEEN #{minAge} AND #{maxAge})
                     </when>
                     <when test="minAge != null">
@@ -107,7 +109,7 @@
                 OR addr LIKE CONCAT('%',#{addr},'%')
             </if>
 
-            <if test="inClass != null">
+            <if test="inClass != null and inClass !=''">
                 OR inClass=#{inClass}
             </if>
         </where>

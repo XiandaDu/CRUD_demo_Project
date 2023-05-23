@@ -34,7 +34,7 @@
         </div>
         <div class="pageControl">
             <button @click="prevPage">Last Page</button>
-            {{ currentPage }}
+            {{ currentPage }}/{{ Math.ceil(totalPages/perPage) }}
             <button @click="nextPage">Next Page</button>
         </div>
 
@@ -100,7 +100,7 @@ export default {
                 createTime:"",
                 updateTime:"",
             },
-            perPage: 5,
+            perPage: 10,
             currentPage: 1,
             showEditStudent: false,
             showAddStudent: false,

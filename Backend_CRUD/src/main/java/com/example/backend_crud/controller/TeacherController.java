@@ -26,10 +26,9 @@ public class TeacherController {
     }
 
     @GetMapping("/getByCondition")
-    public List<Teachers> getByCondition(TeacherPassParam teacherPassParam, Integer minAge, Integer maxAge) {
-        return teacherService.getByCondition(teacherPassParam, minAge, maxAge);
+    public List<Teachers> getByCondition(TeacherPassParam teacherPassParam) {
+        return teacherService.getByCondition(teacherPassParam);
     }
-
 
     @PutMapping("/put")
     public void putById(@RequestBody Teachers teachers) {
@@ -42,8 +41,8 @@ public class TeacherController {
     }
 
     @DeleteMapping("/deleteByCondition")
-    public void deleteByCondition(TeacherPassParam teacherPassParam, Integer minAge, Integer maxAge) {
-        teacherService.deleteByCondition(teacherPassParam, minAge, maxAge);
+    public void deleteByCondition(TeacherPassParam teacherPassParam) {
+        teacherService.deleteByCondition(teacherPassParam);
     }
 
     @PostMapping("/post")

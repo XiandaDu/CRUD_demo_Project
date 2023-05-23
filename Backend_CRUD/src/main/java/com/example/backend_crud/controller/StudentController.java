@@ -26,7 +26,7 @@ public class StudentController {
     }
 
     @GetMapping("/getByCondition")
-    public List<Students> getByCondition(@RequestBody StudentPassParam studentPassParam) {
+    public List<Students> getByCondition( StudentPassParam studentPassParam) {
         return studentService.getByCondition(studentPassParam);
     }
 
