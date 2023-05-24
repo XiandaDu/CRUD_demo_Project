@@ -5,24 +5,25 @@
     <div class="slider-container">
 
         <div class="slider-handle" @click="toggleSlider">
-            <span v-if="!isOpen">Click to open</span>
-            <span v-else>Click to close</span>
+            <span v-if="!isOpen" style="font-size: 20px">Click to open</span>
+            <span v-else style="font-size: 20px">Click to close</span>
+            <img class="arrow" src="../assets/arrow-40166.svg" alt="arrow" :class="{ 'open': isOpen}">
         </div>
 
         <div class="slider" :class="{ 'open': isOpen}">
             <div class="slider-content1" @click="change(1)" :class="{'active':ChangePage===1}">
-                <p>Students Information</p>
+                <p style="font-size: 20px">Students Information</p>
             </div>
             <div class="slider-content2" :class="{'open':isOpen, 'active':ChangePage===2}" @click="change(2)">
-                <p>Teachers Information</p>
+                <p style="font-size: 20px">Teachers Information</p>
             </div>
         </div>
 
         <div class="slider-class_info" :class="{'open': isOpen, 'active':ChangePage===3}"  @click="change(3)">
-            <p>Class information</p>
+            <p style="font-size: 20px">Class information</p>
         </div>
         <div class="slider-log" :class="{'open': isOpen, 'active':ChangePage===4}"  @click="change(4)">
-            <p>Log record</p>
+            <p style="font-size: 20px">Log record</p>
         </div>
     </div>
 
@@ -99,7 +100,19 @@ export default {
 .slider-handle span {
     font-size: 14px;
 }
-
+.arrow {
+    position: absolute;
+    left: 16vw;
+    top: 1.5vw;
+    width: 2.5vw;
+    height: 2vw;
+    z-index: 1;
+    transform: rotate(270deg);
+    transition: transform 0.3s ease;
+}
+.arrow.open{
+    transform: rotate(90deg);
+}
 .slider-content1 {
     color: #ffffff;
     background-color: #20335d;

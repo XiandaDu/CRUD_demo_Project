@@ -4,7 +4,7 @@
     <button @click="searchMode(2)" type="searchButtonT">Search Teachers</button>
     <button @click="deleteMode(2)" type="deleteButtonT">Delete Teachers</button>
     <div class="result">
-        <div v-if="showStudentResult">
+        <div v-if="showStudentResult" class="studentResult">
             <table>
                 <thead>
                 <tr>
@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <div v-if="showTeacherResult">
+        <div v-if="showTeacherResult" class="teacherResult">
             <table>
                 <thead>
                 <tr>
@@ -267,7 +267,7 @@ import axios from 'axios'
                   email: "",
                   title: "",
               },
-              showSearchStudent: false,
+              showSearchStudent: true,
               showDeleteStudent: false,
               showSearchTeacher: false,
               showDeleteTeacher: false,
@@ -290,10 +290,15 @@ import axios from 'axios'
 </script>
 
 <style>
-.result{
+.teacherResult{
     position: absolute;
     top: 6vw;
     left: 3vw;
+}
+.studentResult{
+    position: absolute;
+    top: 6vw;
+    left: 20vw;
 }
 
 .deleteStudent,
