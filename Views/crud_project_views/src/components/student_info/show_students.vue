@@ -291,7 +291,7 @@ button:hover {
     top: 1vw;
     width: 30vw;
     opacity:1;
-    z-index: 99; /*edit mode will show on the toppest layer*/
+    z-index: 99;
 }
 
 form label {

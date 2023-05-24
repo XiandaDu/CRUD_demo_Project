@@ -31,7 +31,7 @@
             <button @click="nextPage">Next Page</button>
         </div>
 
-
+        <button @click="searchModeLog" type="searchLogButton">Search Logs</button>
         <button @click="addMode" type="addButton">Add Log</button>
         <div class="addLog" v-if="showAddLog">
             <h3>Add Log</h3>
@@ -50,6 +50,25 @@
             </form>
         </div>
 
+
+        <div class="searchLog" v-if="showSearchForm">
+            <h3>Search Log</h3>
+            <form>
+                <label for="addAction">Action： </label>
+                <input type="text" id="addAction" v-model="currentLog.action" required>
+                <label for="addObjectType">Impacted Object Type： </label>
+                <input type="text" id="addObjectType" v-model="currentLog.objectType" required>
+                <label for="addModiStudId">Impacted Student id： </label>
+                <input type="number" id="addModiStudId" v-model="currentLog.modiStudId" required>
+                <label for="addModiTeacId">Impacted Teacher id： </label>
+                <input type="number" id="addModiTeacId" v-model="currentLog.modiTeacId" required>
+
+                <button type="submit" @click.prevent="SearchLog">Search</button>
+                <button type="submit" @click="searchModeLog">Cancel</button>
+            </form>
+        </div>
+
+
     </div>
 
 </template>
@@ -61,12 +80,10 @@ export default {
         return {
             logList: [],
             currentLog: {
-                id:"",
                 action:"",
                 objectType:"",
                 modiStudId:"",
                 modiTeacId:"",
-                createTime:"",
             },
             perPage: 7,
             currentPage: 1,
@@ -80,6 +97,7 @@ export default {
                 modiTeacId:"",
                 createTime:"",
             },
+            showSearchForm: false,
         };
     },
     methods: {
@@ -92,6 +110,13 @@ export default {
             axios.get(`http://localhost:8081/log/get/${id}`).then((response)=>{
                 this.currentLog = response.data;
             })
+        },
+        SearchLog(){
+            axios.get(`http://localhost:8081/log/getByCondition`,{params: {...this.currentLog}}).then((response) => {
+                this.logList = response.data;
+            });
+            this.currentPage = 1;
+            this.showSearchForm = false;
         },
         addLog(){
             axios.post(`http://localhost:8081/log/post`, this.newLog)
@@ -117,14 +142,18 @@ export default {
         },
         prevPage() {
             if (this.currentPage > 1) {
-                this.currentPage--
+                this.currentPage--;
             }
         },
         nextPage() {
             if ((this.currentPage)*this.perPage < this.totalPages) {
-                this.currentPage++
+                this.currentPage++;
             }
         },
+        searchModeLog(){
+            this.showSearchForm = !this.showSearchForm;
+        },
+
     },
 
     mounted() {
@@ -143,4 +172,34 @@ export default {
     },
 }
 </script>
+
+<style>
+button[type="searchLogButton"]{
+    background-color: #3f698c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    position: absolute;
+    right: 10vw;
+    top: 0vw;
+    font-size: 20px;
+}
+.searchLog{
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
+    position: absolute;
+    left: 5vw;
+    top: 1vw;
+    width: 30vw;
+    opacity:1;
+    z-index: 99;
+}
+</style>
 

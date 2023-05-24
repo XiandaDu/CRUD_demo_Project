@@ -5,16 +5,20 @@ import table from '../../sample.vue'
 
 const routes = [
     {
+        path: '/',
+        component: welcome
+    },
+    {
         path: '/search',
         component: search
     },
     {
-        path: '/welcome',
-        component: welcome
-    },
-    {
         path:'/table',
         component: table
+    },
+    {
+        path: '/unknown',
+        redirect: '/404'
     }
 ]
 

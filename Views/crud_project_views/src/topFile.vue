@@ -1,14 +1,18 @@
 <template>
     <div class="header">
-        <router-link to="/welcome"><button type="welcome">Welcome</button></router-link>
-        <router-link to="/table"><button type="table">Table</button></router-link>
-        <router-link to="/search"><button type="search">Search</button></router-link>
+        <router-link to="/"><button type="welcome" :class=" {'active': this.$route.path==='/'} ">Welcome</button></router-link>
+        <router-link to="/table"><button type="table" :class=" {'active': this.$route.path==='/table'} ">Table</button></router-link>
+        <router-link to="/search"><button type="search" :class=" {'active': this.$route.path==='/search'} ">Search</button></router-link>
     </div>
-    <router-view></router-view>
+    <router-view v-slot="{ Component }">
+        <transition name="bounce">
+            <component :is="Component" />
+        </transition>
+    </router-view>
 </template>
 
-<style>
 
+<style>
 button[type='welcome']{
     font-size: 48px;
     background-color: #3f698c;
@@ -21,6 +25,7 @@ button[type='welcome']{
     top: 0vw;
     width: 15vw;
     height: 5vw;
+    z-index: 50;
 }
 button[type='table']{
     font-size: 48px;
@@ -34,6 +39,7 @@ button[type='table']{
     top: 0vw;
     width: 15vw;
     height: 5vw;
+    z-index: 50;
 }
 button[type='search']{
     font-size: 48px;
@@ -47,10 +53,34 @@ button[type='search']{
     top: 0vw;
     width: 15vw;
     height: 5vw;
+    z-index: 50;
 }
 button:hover {
     background-color: #2e4472;
 }
+
+button.active{
+   color: black;
+}
+
+.bounce-enter-active {
+    animation: bounce-in 0.3s;
+}
+.bounce-leave-active {
+    animation: bounce-in 0.3s reverse;
+}
+@keyframes bounce-in {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.25);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 </style>
 <script setup>
 </script>
