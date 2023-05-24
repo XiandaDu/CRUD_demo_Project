@@ -17,6 +17,11 @@ public class LogController {
     @GetMapping("/getAll")
     public List<Log> getAll() { return logService.getAll(); }
 
+    @GetMapping("/getByCondition")
+    public List<Log> getByCondition(Log log){
+        return logService.getByCondition(log);
+    }
+
     @PostMapping("/post")
     public void postLog(@RequestBody Log logs){ logService.postLog(logs); }
 }

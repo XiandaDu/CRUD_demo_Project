@@ -5,6 +5,10 @@ This project aims at giving a brief idea of the process of a web development. Th
 
 ## Architecture
 
+```mermaid 
+graph TD;
+A-->B;
+```
 
 ## Technology Stack
 Backend tools: 

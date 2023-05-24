@@ -13,10 +13,14 @@ public class LogService {
 
     public List<Log> getAll(){
         return logMapper.getAll();
-    };
+    }
+
+    public List<Log> getByCondition(Log log) {
+        return logMapper.getByCondition(log.getAction(), log.getObjectType(), log.getModiStudId(), log.getModiTeacId());
+    }
 
     public void postLog(Log logs){
         logMapper.postLog(logs.getAction(), logs.getObjectType(), logs.getModiStudId(), logs.getModiTeacId());
-    };
+    }
 
 }

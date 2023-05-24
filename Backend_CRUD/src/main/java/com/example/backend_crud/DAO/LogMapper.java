@@ -12,8 +12,17 @@ import java.util.List;
 public interface LogMapper {
     List<Log> getAll();
 
+    List<Log> getByCondition(
+            @Param("action") String action,
+            @Param("objectType") String objectType,
+            @Param("modiStudId") Long modiStudId,
+            @Param("modiTeacId") Long modiTeacId
+    );
+
     void postLog (  @Param("action") String action,
                     @Param("objectType") String objectType,
                     @Param("modiStudId") Long modiStudId,
                     @Param("modiTeacId") Long modiTeacId );
+
+
 }

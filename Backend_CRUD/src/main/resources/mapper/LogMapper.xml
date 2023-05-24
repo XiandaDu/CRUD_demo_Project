@@ -15,6 +15,29 @@
         SELECT * FROM Log
     </select>
 
+    <select id="getByCondition" resultType="com.example.backend_crud.entity.Log">
+        SELECT * FROM Log
+        <where>
+            <if test="action != null and action != ''">
+                AND action LIKE CONCAT('%',#{action},'%')
+            </if>
+
+            <if test="objectType != null and objectType != ''">
+                AND objectType=#{objectType}
+            </if>
+
+            <if test="modiStudId != null and modiStudId != ''">
+                AND modiStudId=#{modiStudId}
+            </if>
+
+            <if test="modiTeacId != null and modiTeacId != ''">
+                AND modiTeacId=#{modiTeacId}
+            </if>
+
+        </where>
+    </select>
+
+
     <insert id="postLog" parameterType="com.example.backend_crud.entity.Log">
         INSERT INTO Log(action, objectType, modiStudId, modiTeacId, createTime) VALUES(#{action}, #{objectType}, #{modiStudId}, #{modiTeacId}, NOW())
     </insert>
