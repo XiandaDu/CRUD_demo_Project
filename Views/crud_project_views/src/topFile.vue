@@ -1,5 +1,5 @@
 <template>
-    <div class="header" v-if="this.$route.path!=='/notFound'">
+    <div class="header">
         <router-link to="/"><button type="welcome" :class=" {'active': this.$route.path==='/'} ">Welcome</button></router-link>
         <router-link to="/table"><button type="table" :class=" {'active': this.$route.path==='/table'} ">Table</button></router-link>
         <router-link to="/search"><button type="search" :class=" {'active': this.$route.path==='/search'} ">Search</button></router-link>

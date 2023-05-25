@@ -1,4 +1,5 @@
 <template>
+<div class="head"/>
   <p class="notFound">Opps, the page disappears ~ ~ </p>
 </template>
 
