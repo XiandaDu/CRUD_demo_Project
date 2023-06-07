@@ -73,3 +73,29 @@ DELETE /operation_log/{id}：删除指定 id 的操作日志信息
     "phone": {% mock 'integer' , 1000000000 , 9999999999 %},
     "addr": {% mock 'pick' , ["Alberta", "Manitoba", "Hamilton", "Markham", "Ottawa", "Scarbourough","Vancouver","Regina","Montreal","Quebec City","Saskatoon","Calgory","Victoria","Halifax","Fredicton","St. John","Waterloo","Kinston","London"] %}
 }
+
+
+git, Postman, ApiFox, Docker
+Spring Framework, Vue.js
+Maven, Jackson, JDBC, Jedis, MyBatis, ElementUI
+Java, SQL, HTML, CSS, JavaScript / reflection, thread, generics, annotation / xml, yaml, json
+MySQL, MongoDB, Redis
+
+---------------------------------------------------------------------------
+Java Foundation:
+    IO, Reflection, Annotation, Generics, Thread
+
+Big Demo project:
+    Spring Framework:
+        REST, Interface, MyBatis, CRUD
+    Vue.js:
+        .vue File Structure, vue router
+    Database:
+        MySQL, Redis
+
+Docker:
+   Docker Image, Docker Container
+
+API connection:
+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
+---------------------------------------------------------------------------

@@ -11,13 +11,5 @@ import java.util.List;
 
 @SpringBootTest
 class BackendCrudApplicationTests {
-    @Autowired
-    private StudentController studentController;
 
-    @Test
-    void postStudent(){
-        //name, gender, inClass, age, phone, addr
-        System.out.println("XXXXXXXXXXXXXXXXXXXXX这是一条分割线");
     }
-
-}
