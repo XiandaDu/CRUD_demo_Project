@@ -33,7 +33,7 @@ Either way you created the docker images, you need to do several things to get s
 1. RESTful APIs and the MySQL database is connected by docker network. Thus, remember to create a docker network
 and connect RESTful APIs and the database correctly.
 (assume you are in the readme folder)
-````mermaid
+````
 docker network create springboot-mysql-net
 docker run --name mysqldb --network springboot-mysql-net -e MYSQL_ROOT_PASSWORD=1234567890 springserver
 docker run --name spring-container --network springboot-mysql-net mysql
@@ -41,23 +41,23 @@ docker run --name spring-container --network springboot-mysql-net mysql
 
 2. We need to add data into the mysql image
 copy the sql script into the container
-````mermaid
+````
 docker cp ./Backend_CRUD/database/all_db.sql mysqldb:/docker-entrypoint-initdb.d/
 ````
 turn on the container terminal
-````mermaid
+````
 docker exec -it mysqldb -u root -p
 ````
 input the password, the default password is 1234567890. 
 
 run the sql script to import the initial data
-````mermaid
+````
 mysql ./docker-entrypoint-initdb.d/all_db.sql
 ````
 Then first_db should have been created.
 
 3. Check if connected successfully
-````mermaid
+````
 curl http://localhost:8081/student/hello
 ````
 If you see "Hello world", it means that the RESTful APIs are working.
