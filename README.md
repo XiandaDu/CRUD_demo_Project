@@ -10,8 +10,6 @@ This is a demo project where it involves the CRUD
 those operations and the corresponding RESTful APIs. 
 
 For quick view online, please go to www.allendu.me
-## Architecture
-
 
 ## Technology Stack
 Backend tools: SpringBoot 2.x, JDK 1.8, Maven, MyBatis
