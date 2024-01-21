@@ -1,4 +1,4 @@
-# CRUD Demo Project
+# Campus Management System
 
 ## Introduction
 This is a simple demo project that demonstrates the use of a 
